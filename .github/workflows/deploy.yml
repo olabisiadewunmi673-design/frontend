@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_API_URL: https://ola-cousework.onrender.com
+          VITE_API_URL: https://ola-coursework-backend.onrender.com
           
       - name: Setup Pages
         uses: actions/configure-pages@v4
