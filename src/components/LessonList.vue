@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Sort Dropdown -->
-    <div class="mb-4">
+    <!-- Sort Controls -->
+    <div class="mb-4 d-flex gap-2 align-items-center flex-wrap">
       <div class="dropdown">
         <button 
           class="btn btn-outline-primary dropdown-toggle" 
@@ -12,9 +12,6 @@
         >
           <i class="fas fa-sort me-2"></i>
           Sort by: {{ getCurrentSortLabel() }}
-          <i v-if="sortBy" 
-             :class="sortOrder === 'asc' ? 'fas fa-arrow-up ms-2' : 'fas fa-arrow-down ms-2'" 
-          ></i>
         </button>
         <ul class="dropdown-menu" aria-labelledby="sortDropdown">
           <li v-for="field in sortFields" :key="field.value">
@@ -22,12 +19,9 @@
               class="dropdown-item" 
               href="#"
               :class="{ active: sortBy === field.value }"
-              @click.prevent="toggleSort(field.value)"
+              @click.prevent="selectSort(field.value)"
             >
               {{ field.label }}
-              <i v-if="sortBy === field.value" 
-                 :class="sortOrder === 'asc' ? 'fas fa-arrow-up float-end' : 'fas fa-arrow-down float-end'" 
-              ></i>
             </a>
           </li>
           <li v-if="sortBy"><hr class="dropdown-divider"></li>
@@ -42,6 +36,17 @@
           </li>
         </ul>
       </div>
+      
+      <!-- Ascending/Descending Toggle Button -->
+      <button 
+        v-if="sortBy"
+        class="btn btn-outline-secondary"
+        @click="toggleOrder"
+        :title="sortOrder === 'asc' ? 'Currently Ascending - Click for Descending' : 'Currently Descending - Click for Ascending'"
+      >
+        <i :class="sortOrder === 'asc' ? 'fas fa-arrow-up' : 'fas fa-arrow-down'"></i>
+        {{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }}
+      </button>
     </div>
     
     <!-- Lessons Grid -->
@@ -106,13 +111,12 @@ const clearSort = () => {
   emit('update:sortOrder', 'asc')
 }
 
-const toggleSort = (field) => {
-  if (props.sortBy === field) {
-    emit('update:sortOrder', props.sortOrder === 'asc' ? 'desc' : 'asc')
-  } else {
-    emit('update:sortBy', field)
-    emit('update:sortOrder', 'asc')
-  }
+const selectSort = (field) => {
+  emit('update:sortBy', field)
+}
+
+const toggleOrder = () => {
+  emit('update:sortOrder', props.sortOrder === 'asc' ? 'desc' : 'asc')
 }
 
 const getAvailableSpaces = (lesson) => {
