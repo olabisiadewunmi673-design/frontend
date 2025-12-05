@@ -27,12 +27,6 @@
           
           <div class="collapse navbar-collapse" id="navbarNav">
             <div class="ms-auto d-flex align-items-center gap-3">
-              <div class="nav-stats d-none d-md-flex">
-                <div class="stat-item">
-                  <i class="fas fa-book-open me-1"></i>
-                  <span>Browse Lessons</span>
-                </div>
-              </div>
               <button 
                 type="button"
                 @click="$emit('toggle-cart')"
@@ -101,21 +95,6 @@ defineEmits(['toggle-cart'])
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-.nav-stats {
-  color: rgba(255, 255, 255, 0.9);
-  font-size: 0.875rem;
-  gap: 1.5rem;
-}
-
-.stat-item {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50px;
-  backdrop-filter: blur(10px);
 }
 
 .cart-btn {

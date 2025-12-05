@@ -8,7 +8,7 @@
         :alt="lesson.subject"
       >
       <div v-else class="card-img-top bg-gradient d-flex align-items-center justify-content-center">
-        <i :class="lesson.icon" class="fa-3x text-white opacity-75"></i>
+        <i :class="iconClass" class="fa-3x text-white opacity-75"></i>
       </div>
       <div class="price-badge">
         £{{ lesson.price }}
@@ -18,7 +18,7 @@
     <div class="card-body">
       <div class="d-flex align-items-start mb-3">
         <div class="icon-wrapper me-3">
-          <i :class="lesson.icon" class="fa-2x text-primary"></i>
+          <i :class="iconClass" class="fa-2x text-primary"></i>
         </div>
         <div class="flex-grow-1">
           <h5 class="card-title mb-1 fw-bold">{{ lesson.subject }}</h5>
@@ -71,6 +71,38 @@ const props = defineProps({
 const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
 
 defineEmits(['add-to-cart'])
+
+// Get icon class - use lesson.icon if available, otherwise derive from subject
+const iconClass = computed(() => {
+  if (props.lesson.icon) return props.lesson.icon
+  
+  const subject = (props.lesson.subject || '').toLowerCase()
+  const iconMap = {
+    'math': 'fas fa-calculator',
+    'mathematics': 'fas fa-calculator',
+    'english': 'fas fa-book',
+    'science': 'fas fa-flask',
+    'chemistry': 'fas fa-atom',
+    'physics': 'fas fa-magnet',
+    'biology': 'fas fa-dna',
+    'history': 'fas fa-landmark',
+    'geography': 'fas fa-globe',
+    'music': 'fas fa-music',
+    'art': 'fas fa-palette',
+    'computer': 'fas fa-laptop-code',
+    'french': 'fas fa-language',
+    'spanish': 'fas fa-language',
+    'economics': 'fas fa-chart-line',
+    'health': 'fas fa-heartbeat',
+    'gym': 'fas fa-dumbbell',
+    'literature': 'fas fa-feather-alt'
+  }
+  
+  for (const [key, icon] of Object.entries(iconMap)) {
+    if (subject.includes(key)) return icon
+  }
+  return 'fas fa-book-open'
+})
 
 const getAvailabilityClass = () => {
   if (props.availableSpaces <= 0) return 'bg-danger'
