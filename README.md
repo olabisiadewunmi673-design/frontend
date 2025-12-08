@@ -3,7 +3,7 @@
 ## 🚀 Live URLs
 
 - **Frontend (GitHub Pages)**: https://olabisiadewunmi673-design.github.io/frontend/
-- **Backend (Render.com)**: https://ola-cousework.onrender.com
+- **Backend (Render.com)**: https://ola-coursework-backend.onrender.com/
 - **GitHub Repository**: https://github.com/olabisiadewunmi673-design/frontend
 
 ## 📦 Project Structure
